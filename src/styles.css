@@ -73,21 +73,6 @@ body {
   overflow: hidden;
 }
 
-/* Information Table  */
-#information {
-  grid-column: 5/13;
-  grid-row: 2/4;
-  padding: 0.5vw;
-  padding-top: 0;
-  font-size: 1vw;
-  max-height: 10vw;
-  overflow-y: scroll;
-}
-
-#information h1 {
-  margin: 0 0 0.5vw 0;
-}
-
 .big_title {
   display: inline-block;
 }
@@ -98,16 +83,6 @@ body {
   margin-left: 5px;
   top: -0.7vw;
   position: relative;
-}
-
-.close-button {
-  float: right;
-  cursor: pointer;
-  color: #cccccc;
-}
-
-.close-button:hover {
-  color: #333333;
 }
 
 .appearance {
@@ -198,9 +173,12 @@ body {
 
 /* The Unknown Element  */
 .unknown {
-  background: #ccffff;
+  background: white;
 }
 
+.hide {
+  background: blue;
+}
 /* Disable the top space for the first lathenide which sits inside the table  */
 .element-57 {
   margin: 0;
