@@ -4,39 +4,67 @@ import "./styles.css";
 import { elements } from "./_data";
 import Checkbox from "./checkbox";
 
+function Cell(props) {
+  return (
+    <div className={`element element-${props.number} ${props.category}`}>
+      <div className="number">{props.number}</div>
+      <div className="symbol">{props.symbol}</div>
+    </div>
+  );
+}
+
 function PeriodicTable(props) {
-  const category = {
-    noble: 0,
-    alkali: 1,
-    alkaline: 1,
-    transition: 1,
-    polyatomic: 1,
-    diatomic: 1,
-    "post-transition": 1,
-    metalloid: 1,
-    lanthanide: 1,
-    actinide: 1,
-    "unknown,": 1
+  var category = {
+    noble: false,
+    alkali: true,
+    alkaline: true,
+    transition: true,
+    polyatomic: true,
+    diatomic: true,
+    "post-transition": true,
+    metalloid: true,
+    lanthanide: true,
+    actinide: true,
+    "unknown,": true
   };
+  const st = useState(category);
+  var cat = st[0];
+  var setter = st[1];
   function getFirstWord(str) {
     let spacePosition = str.indexOf(" ");
     if (spacePosition === -1) return str;
     else return str.substr(0, spacePosition);
   }
-  function handleCheckboxChange(props) {}
-  function renderCell(props) {
-    if (!category[getFirstWord(props.category)]) {
+  function handleCheckboxChange(props) {
+    var newstate = { ...cat };
+    if (cat[props.target.name] === true) {
+      newstate[props.target.name] = false;
+    } else {
+      newstate[props.target.name] = true;
+    }
+    setter(newstate);
+  }
+  function RenderCell(props) {
+    if (!cat[getFirstWord(props.category)]) {
       return (
         <div className={`element element-${props.number} ${props.category}`} />
       );
     } else {
-      return Cell(props);
+      return (
+        <Cell
+          number={props.number}
+          key={props.number}
+          category={props.category}
+          symbol={props.symbol}
+        />
+      );
     }
   }
   return (
     <div className="wrapper">
       <h1 align="center"> The Periodic Table of Elements </h1>
-      <div id="table">{elements.map(block => renderCell(block))}</div>
+      <div id="table">{elements.map(block => RenderCell(block))}</div>
+
       <div align="center">
         {/* {Object.keys(category).map(key => category[key])} */}
         {/* {Object.keys(category).map(key => (
@@ -48,22 +76,12 @@ function PeriodicTable(props) {
             {key}
             <Checkbox
               name={key}
-              checked={category[key]}
+              checked={cat[key]}
               onChange={handleCheckboxChange}
             />
           </label>
         ))}
       </div>
-    </div>
-  );
-}
-
-function Cell(props) {
-  return (
-    <div className={`element element-${props.number} ${props.category}`}>
-      <div className="number">{props.number}</div>
-      <div className="symbol">{props.symbol}</div>
-      <div className="element-name">{props.category}</div>
     </div>
   );
 }
