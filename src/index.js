@@ -6,7 +6,10 @@ import Checkbox from "./checkbox";
 
 function Cell(props) {
   return (
-    <div className={`element element-${props.number} ${props.category}`}>
+    <div
+      className={`element element-${props.number} ${props.category}`}
+      key={`${props.number}`}
+    >
       <div className="number">{props.number}</div>
       <div className="symbol">{props.symbol}</div>
     </div>
@@ -47,14 +50,17 @@ function PeriodicTable(props) {
   function RenderCell(props) {
     if (!cat[getFirstWord(props.category)]) {
       return (
-        <div className={`element element-${props.number} ${props.category}`} />
+        <div
+          className={`element element-${props.number} ${props.category}`}
+          key={`${props.number}`}
+        />
       );
     } else {
       return (
         <Cell
           number={props.number}
           key={props.number}
-          category={props.category}
+          category={getFirstWord(props.category)}
           symbol={props.symbol}
         />
       );
